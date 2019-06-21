@@ -1,5 +1,6 @@
 package com.br.dao;
 
+import com.br.database.ccon;
 import com.br.model.Users;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,23 +31,28 @@ public class UserDAO {
         String sql = "INSERT INTO tb_user (login_User,"
                 + "pass_User,perfil_User,"
                 + "email_User) VALUES (?,?,?)" ;
+        
+        Boolean retorno = false;
         try
         {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = ccon.getPreparedStatement(sql);
             stmt.setString(1,users.getLogin_User());
             stmt.setString(2,users.getPass_User());
             stmt.setString(3,users.getPerfil_User());
             stmt.setString(4,users.getEmail_User());
             
             stmt.execute();
-            return true;
+            
+            if(stmt.executeUpdate()>0){
+                return true;
+            }
         }
         catch(SQLException ex)
         {
             JOptionPane.showMessageDialog(null, "Database not connected" + ex);
             return false;
         }
-        
+        return retorno;
     }
     
     public boolean Alter(Users users)
@@ -58,7 +64,7 @@ public class UserDAO {
                 + "email_User = ?) WHERE id_user = ?" ;
         try
         {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = ccon.getPreparedStatement(sql);
             stmt.setString(1,users.getLogin_User());
             stmt.setString(2,users.getPass_User());
             stmt.setString(3,users.getPerfil_User());
@@ -85,7 +91,7 @@ public class UserDAO {
         List<Users> retorno = new ArrayList<>();
         try
         {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = ccon.getPreparedStatement(sql);
             ResultSet result = stmt.executeQuery();
             
             while(result.next())

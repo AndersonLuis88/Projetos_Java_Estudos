@@ -5,6 +5,11 @@
  */
 package com.br.ws;
 
+import com.br.dao.UserDAO;
+import com.br.model.Users;
+import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -45,10 +50,21 @@ public class WsProduct {
     //usuário
     @GET
     @Produces("application/json")
-    @Path("user/get")
-    public String getWsUser() {
+    @Path("user/list")
+    public String listUsers() {
         //TODO return proper representation object
-        return "User Test";
+        List<Users> listUsers;
+        
+        UserDAO  uDAO = new UserDAO();
+        
+        listUsers = uDAO.list();
+        
+        //Converter classe Users para json
+        
+        Gson obj = new Gson();
+        
+        return obj.toJson(listUsers);
+        
     }
 
     /**

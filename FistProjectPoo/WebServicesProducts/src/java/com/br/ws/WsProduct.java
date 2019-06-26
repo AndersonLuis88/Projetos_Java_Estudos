@@ -67,6 +67,28 @@ public class WsProduct {
         
     }
 
+    //usuário
+    @GET
+    @Produces("application/json")
+    @Path("user/listlogin/{login}")
+    public String listLogin(@PathParam("login") String login) {
+        
+        Users a = new Users();
+        a.setLogin_User(login);
+        
+        
+        
+        UserDAO  uDAO = new UserDAO();
+        
+        a = uDAO.listLogin(a);
+        
+        //Converter classe Users para json
+        
+        Gson obj = new Gson();
+        
+        return obj.toJson(a);
+        
+    }
     /**
      * PUT method for updating or creating an instance of WsProduct
      * @param content representation for the resource

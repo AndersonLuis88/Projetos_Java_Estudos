@@ -86,25 +86,59 @@ public class UserDAO {
     //Select
     public List<Users> list()
     {
-        String sql = "Select * FROM tb_user";
+        String sql = "SELECT * FROM tb_user";
         
-        List<Users> retorno = new ArrayList<>();
+        List<Users> rtn = new ArrayList<>();
         try
         {
             PreparedStatement stmt = ccon.getPreparedStatement(sql);
             ResultSet result = stmt.executeQuery();
             
+            
             while(result.next())
             {
-                Users user = new Users();
-                user.setId_User(result.getInt("id_user"));
-                user.setLogin_User(result.getString("login_User"));
-                user.setPass_User(result.getString("pass_User"));
-                user.setPerfil_User(result.getString("perfil_User"));
-                user.setEmail_User(result.getString("email_User"));
+                Users users = new Users();
+                users.setId_User(result.getInt("id_user"));
+                users.setLogin_User(result.getString("login_User"));
+                users.setPass_User(result.getString("pass_User"));
+                users.setPerfil_User(result.getString("perfil_User"));
+                users.setEmail_User(result.getString("email_User"));
                 
-                //add list
-                retorno.add(user);
+                
+                rtn.add(users);
+            }
+            
+        }
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, "Don't Possible list in Database" + ex);
+            
+        }
+        return rtn;
+    }
+    
+    public Users listLogin(Users user)
+    {
+        String sql = "Select * FROM tb_user WHERE login_User = ?";
+        
+        Users retorno = new Users();
+        try
+        {
+            PreparedStatement stmt = ccon.getPreparedStatement(sql);
+            stmt.setString(1, user.getLogin_User());
+            
+            ResultSet result = stmt.executeQuery();
+            if(result.next())
+            {
+                
+                retorno.setId_User(result.getInt("id_user"));
+                retorno.setLogin_User(result.getString("login_User"));
+                retorno.setPass_User(result.getString("pass_User"));
+                retorno.setPerfil_User(result.getString("perfil_User"));
+                retorno.setEmail_User(result.getString("email_User"));
+                
+                
+                return retorno;
             }
             
         }

@@ -12,34 +12,29 @@ import java.util.HashMap;
 public class MoMeMd {            
     
     private double array[];
-
 	 
+    public double media() {
 
-    // Coeficiente de Variação de Pearson
+          double tt = 0;
 
-    
-    public double getMediaAritmetica() {
+          for (int cc = 0; cc < array.length; cc++)
 
-          double total = 0;
+                tt += array[cc];
 
-          for (int counter = 0; counter < array.length; counter++)
-
-                total += array[counter];
-
-          return total / array.length;
+          return tt / array.length;
 
     }
    
 
-    public double getMediaAritmetica(double array[]) {
+    public double media(double array[]) {
 
-          double total = 0;
+          double tt = 0;
 
-          for (int counter = 0; counter < array.length; counter++)
+          for (int cc = 0; cc < array.length; cc++)
 
-                total += array[counter];
+                tt += array[cc];
 
-          return total / array.length;
+          return tt / array.length;
 
     }
   
@@ -55,13 +50,13 @@ public class MoMeMd {
 
           System.out.print("\nElementos do Array: ");
 
-          for (int count = 0; count < array.length; count++)
+          for (int cc = 0; cc < array.length; cc++)
 
-                System.out.print(array[count] + " ");
+                System.out.print(array[cc] + " ");
 
     }
 
-    public double getMediana() {
+    public double mediana() {
 
           this.ordenar();
 
@@ -83,7 +78,7 @@ public class MoMeMd {
 
 
 
-    public double getModa() {
+    public double moda() {
 
 
 
@@ -93,29 +88,29 @@ public class MoMeMd {
 
           Double moda = 0.0;
 
-          Integer numAtual, numMaior = 0;
+          Integer atual, maior = 0;
 
-          for (int count = 0; count < array.length; count++) {
+          for (int cc = 0; cc < array.length; cc++) {
 
-                i = (Integer) map.get(new Double(array[count]));
+                i = (Integer) map.get(new Double(array[cc]));
 
 
 
                 if (i == null) {
 
-                      map.put(new Double(array[count]), new Integer(1));
+                      map.put(new Double(array[cc]), new Integer(1));
 
                 } else {
 
-                      map.put(new Double(array[count]), new Integer(i.intValue() + 1));
+                      map.put(new Double(array[cc]), new Integer(i.intValue() + 1));
 
-                      numAtual = i.intValue() + 1;
+                      atual = i.intValue() + 1;
 
-                      if (numAtual > numMaior) {
+                      if (atual > maior) {
 
-                           numMaior = numAtual;
+                           maior = atual;
 
-                           moda = new Double(array[count]);
+                           moda = new Double(array[cc]);
 
 
 
